@@ -130,3 +130,4 @@ dmypy.json
 
 # exclude /data directory entirely
 /data/
+/.vscode/settings.json
