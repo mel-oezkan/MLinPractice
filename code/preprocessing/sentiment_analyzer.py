@@ -36,6 +36,6 @@ class SentimentAnalyzer(Preprocessor):
         polar_sentiment = []
 
         for tweet in inputs[0]:
-            polar_sentiment.append(self.analyzer(tweet))
+            polar_sentiment.append(self.analyzer.polarity_scores(tweet))
 
         return polar_sentiment
