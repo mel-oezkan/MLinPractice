@@ -16,7 +16,7 @@ from sklearn.pipeline import make_pipeline
 from code.preprocessing.punctuation_remover import PunctuationRemover
 from code.preprocessing.tokenizer import Tokenizer
 from code.preprocessing.sentiment_analyzer import SentimentAnalyzer
-from code.util import COLUMN_SENTIMENT, COLUMN_TWEET, SUFFIX_TOKENIZED
+from code.util import COLUMN_TWEET, SUFFIX_TOKENIZED
 
 # setting up CLI
 parser = argparse.ArgumentParser(description="Various preprocessing steps")
