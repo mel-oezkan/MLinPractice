@@ -1,17 +1,12 @@
-# Documentation Example
+# Documentation
 
-Some introductory sentence(s). Data set and task are relatively fixed, so 
-probably you don't have much to say about them (unless you modifed them).
-If you haven't changed the application much, there's also not much to say about
-that.
-The following structure thus only covers preprocessing, feature extraction,
-dimensionality reduction, classification, and evaluation.
+fill with an introduction and motivation why we would want to create such machin learning classifier.
 
 ## Evaluation
 
 ### Design Decisions
 
-Which evaluation metrics did you use and why? 
+Which evaluation metrics did you use and why?
 Which baselines did you use and why?
 
 ### Results
@@ -24,14 +19,14 @@ Is there anything we can learn from these results?
 
 ## Preprocessing
 
-I'm following the "Design Decisions - Results - Interpretation" structure here,
-but you can also just use one subheading per preprocessing step to organize
-things (depending on what you do, that may be better structured).
+For the classifiaction if the tweet will be viral or not we will have a look at the sentiment of the tweet. Assuming that viral tweets are more likey to contain content that is polarizing. Which translates into an either very negative or positve attituded within the tweet.
 
 ### Design Decisions
 
 Which kind of preprocessing steps did you implement? Why are they necessary
 and/or useful down the road?
+
+For the implementation of the sentiment scoring we used a off the shelf model from the nltk library.
 
 ### Results
 

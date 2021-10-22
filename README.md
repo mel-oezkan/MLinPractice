@@ -67,7 +67,7 @@ Here, `input.csv` is a csv file (ideally the output of `create_labels.py`), whil
 The preprocessing steps to take can be configured with the following flags:
 
 - `-p` or `--punctuation`: A new column "tweet_no_punctuation" is created, where all punctuation is removed from the original tweet. (See `code/preprocessing/punctuation_remover.py` for more details)
-- `-s` or `--sentiment`: A new column "tweet_sentiment" is created, which will contain a floating point value between 0 (negative) and 1 (positive)indicating the sentiment of the tweet.
+- `-s` or `--sentiment`: A new column "tweet_sentiment" is created, which will contain a floating point value between -1 (negative) and 1 (positive)indicating the sentiment of the tweet.
 - `-t`or `--tokenize`: Tokenize the given column (can be specified by `--tokenize_input`, default = "tweet"), and create new column with suffix "\_tokenized" containing tokenized tweet.
 
 Moreover, the script accepts the following optional parameters:
