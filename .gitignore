@@ -133,5 +133,6 @@ data/raw/
 data/preprocessing/
 
 # Jupyter notebooks for visualizaiton 
-# and testing implementations
+# and testing implementationss
 test-notebook.ipynb
+*.ipynb
