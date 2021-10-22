@@ -131,3 +131,7 @@ dmypy.json
 # exclude csv files from data directory
 data/raw/
 data/preprocessing/
+
+# Jupyter notebooks for visualizaiton 
+# and testing implementations
+test-notebook.ipynb
