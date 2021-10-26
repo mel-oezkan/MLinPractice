@@ -14,6 +14,7 @@ from sklearn.dummy import DummyClassifier
 from sklearn.metrics import accuracy_score, cohen_kappa_score
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 from sklearn.pipeline import make_pipeline
 from mlflow import log_metric, log_param, set_tracking_uri
 
@@ -32,7 +33,7 @@ parser.add_argument("-f", "--frequency", action="store_true",
                     help="label frequency classifier")
 parser.add_argument("--svm", action="store_true",
                     help="support vector machine (svm) classifier")
-parser.add_argument("-std", "--standartize", action="store_true",
+parser.add_argument("-std", "--standartize", default=None,
                     help="support vector machine (svm) classifier")
 
 parser.add_argument(
@@ -90,7 +91,17 @@ else:   # manually set up a classifier
         classifier = make_pipeline(standardizer, knn_classifier)
 
     elif args.svm:
-        pass
+        print("    svm classifier")
+        svm_classifier = SVC(gamma='auto')
+
+        if args.standartize:
+            standardizer = StandardScaler()
+            classifier = make_pipeline(
+                standardizer,
+                svm_classifier
+            )
+        else:
+            classifier = svm_classifier
 
     classifier.fit(data["features"], data["labels"].ravel())
     log_param("dataset", "training")
