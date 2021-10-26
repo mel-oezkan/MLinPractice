@@ -5,54 +5,24 @@ Collects the feature values from many different feature extractors.
 
 Created on Wed Sep 29 12:36:01 2021
 
-@author: lbechberger
+@author: meloezkan
 """
 
 import numpy as np
 from code.feature_extraction.feature_extractor import FeatureExtractor
 
-# extend FeatureExtractor for the sake of simplicity
 
+class DataFeatures(FeatureExtractor):
 
-class FeatureCollector(FeatureExtractor):
+    def __init__(self, input_column):
+        # names the input column the same way was in the data
+        super().__init__([input_column], input_column)
 
-    # constructor
-    def __init__(self, features):
+    def _set_variables(self, inputs):
 
-        # store features
-        self._features = features
+        overall_text = []
+        for line in inputs:
+            tokens = ast.literal_eval(line.item())
+            overall_text += tokens
 
-        # collect input columns
-        input_columns = []
-        for feature in self._features:
-            input_columns += feature.get_input_columns()
-
-        # remove duplicate columns
-        input_colums = list(set(input_columns))
-
-        # call constructor of super class
-        super().__init__(input_columns, "FeatureCollector")
-
-    # overwrite fit: instead of calling _set_variables(), we forward the call to the features
-
-    def fit(self, df):
-
-        for feature in self._features:
-            feature.fit(df)
-
-    # overwrite transform: instead of calling _get_values(), we forward the call to the features
-    def transform(self, df):
-
-        all_feature_values = []
-
-        for feature in self._features:
-            all_feature_values.append(feature.transform(df))
-
-        result = np.concatenate(all_feature_values, axis=1)
-        return result
-
-    def get_feature_names(self):
-        feature_names = []
-        for feature in self._features:
-            feature_names.append(feature.get_feature_name())
-        return feature_names
+        self._bigrams = nltk.bigrams(overall_text)
