@@ -141,6 +141,7 @@ By default, this data is used to train a classifier, which is specified by one o
 
 - `-m` or `--majority`: Majority vote classifier that always predicts the majority class.
 - `-f` or `--frequency`: Dummy classifier that makes predictions based on the label frequency in the training data.
+- `--svm`: Makes predictions using support vector machines (svm). The input features can additionaly be standartized using the argument `-std`
 
 The classifier is then evaluated, using the evaluation metrics as specified through the following optional arguments:
 
@@ -153,7 +154,7 @@ Moreover, the script support importing and exporting trained classifiers with th
 - `-e` or `--export_file`: Export the trained classifier into the given pickle file.
 
 Finally, the optional argument `-s` or `--seed` determines the seed for intializing the random number generator (which may be important for some classifiers).
-Using the same seed across multiple runs ensures reproducibility of the results. If no seed is set, the current system time will be used.
+Using the same seed across multiple runs ensures reproducibility of the results. If no seed is set, the current system time will be used. Additionally the argument `-std` or `--standartize` scales the input features to a standart scale before applying the smv classifier (this argument only works with svm currently)
 
 ## Application
 
