@@ -24,22 +24,25 @@ class LanguageFeature(FeatureExtractor):
         super().__init__(['language'], "language_encoding")
 
         self.source = source_file
-        self.source_file = pathlib.Path(self.source_file)
-    # takes the inputs and fetches the unique country count
+
+        # takes the inputs and fetches the unique country count
+        self.source_file = pathlib.Path(source_file)
 
     def _set_variables(self, inputs):
 
         # check the source file befor using
+        print(f"source file: {self.source_file}")
+        print(f"source file suffix: {self.source_file.suffix}")
         assert self.source_file.exists(), (
             "Given Source file does not exits")
-        assert self.source_file.suffix == "csv", (
+        assert self.source_file.suffix == ".csv", (
             "Given source file has to be a csv")
 
         # read the file and fetch the language column
-        data = pd.read_csv(self.source_file.name)
+        data = pd.read_csv(self.source_file)
         assert "language" in data.columns, (
             "Given source file has to contain a language column")
-        country_codes = data["lanugages"]
+        country_codes = data["language"]
 
         uniqe_elems = set(country_codes)
         self.oneHot = OneHotEncoder(sparse=False)
