@@ -10,6 +10,8 @@ Created on Wed Sep 29 11:00:24 2021
 
 import argparse
 import csv
+import os
+import pathlib
 import pickle
 import pandas as pd
 import numpy as np
@@ -59,7 +61,15 @@ else:    # need to create FeatureCollector manually
         # character length of original tweet (without any changes)
         features.append(CharacterLength(COLUMN_TWEET))
     if args.language_feature:
-        features.append(LanguageFeature())
+
+        # read in the source file for the language keys
+        language_source = args.language_source
+        if not language_source:
+            # use a default path (where the base preprocessed data should be)
+            language_source = "data/preprocessing/preprocessed.csv"
+
+        # Language Feature class will do the other neccessary checks
+        features.append(LanguageFeature(language_source))
 
     # create overall FeatureCollector
     feature_collector = FeatureCollector(features)
