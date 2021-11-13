@@ -70,8 +70,9 @@ result: ''
 Given that polarizing opinions attract many listeners most of the times, we assume that the tweets with higher sentiment (either very positive or negative) will reach a larger audience. 
 
 
-### Feature j: 
-Information about a second feature I am gonna use
+### Feature 2: Language of Tweet 
+Since english is the most spoken language in the world the assumption is that tweets written in english will be read by more people than something wrtitten in german. Thus the language of the tweet will be encoded as a one hot encoding and used as a feature for the tweet. 
+
 
 ## Evaluation:
 
