@@ -4,7 +4,11 @@ In the following text we will describe the process and overall pipeline of how t
 
 ## Dataset
 
-For our training and testing we will use the publicly availible dataset from (author)
+For our training and testing we will use the publicly availible dataset from (author). The data consist of n Tweets, all of whom are about the topic of data sience. Each data-point consist of the tweet content itsels and all the metainformation of that tweet such as, `images, retweets, likes, mentions, comments, place, language, etc.`.
+
+The tweets will be labeld according to their virality. Virality in this case will be assigned by counting the likes, retweets, comments and weighing them accordingly. Tweets exceeding a predefined thershold of the weighted variables will be classified as viral and the ones below this threshold will be labeld non-viral.
+
+
 
 ## Evalaution
 
@@ -62,4 +66,61 @@ result: '["some", "tweets", "are", "viral", "some", "are", "not"]'
 ## Feature Selection
 
 ### Feature i: Tweet Sentiment
-The 
+Given that polarizing opinions attract many listeners most of the times, we assume that the tweets with higher sentiment (either very positive or negative) will reach a larger audience. 
+
+
+### Feature j: 
+
+
+## Evaluation:
+
+For the evaluation of the models simple scoring metrices will be used. The metrics are:  `accuracy, cohen_kappa, balanced_accuracy` and a `confusion matrix` of the classifications.
+
+The reason for our usage of these metrices are that they are simple and when compared with each other a very good tool to esimate the abilities of the classifiers. 
+
+To further the evaluation we will have a look at a later point at some **false positives** and **false negatives** to get a better understanding why the models acted the way they did.
+
+## Classification
+
+For the evaluation of the classification results we will create three runs. In each of these runs a different threshold for the virality will be set and classified by three different algorithms (Nearest Neighbor, SVM, Random Forest). 
+
+### Run 1: 
+
+**Like trehsold = 20**  
+**Retweet trehsold = 20**  
+**Comment trehsold = 20**  
+
+image containing the results of classification
+
+### Run 2:
+
+**Like trehsold = 50**  
+**Retweet trehsold = 50**  
+**Comment trehsold = 50**  
+
+image containing the results of classification
+
+### Run 3:
+**Like trehsold = 100**  
+**Retweet trehsold = 100**  
+**Comment trehsold = 100**  
+
+image containing the results of classification
+
+
+## Conclusion
+
+The results have shown that the virality of a tweet is most often more complex than a few simple features. 
+
+
+
+
+
+
+
+
+
+
+
+
+
