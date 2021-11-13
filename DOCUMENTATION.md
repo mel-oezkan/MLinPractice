@@ -66,12 +66,28 @@ result: ''
 
 ## Feature Selection
 
-### Feature 1: Tweet Sentiment
+### Feature 1: Sentiment of Tweet 
 Given that polarizing opinions attract many listeners most of the times, we assume that the tweets with higher sentiment (either very positive or negative) will reach a larger audience. 
 
+Example:
+```
+input: 'using pandas makes me very sad'   
+feature['pos']: 0.1
+feature['neg']: 0.94
+```
 
 ### Feature 2: Language of Tweet 
 Since english is the most spoken language in the world the assumption is that tweets written in english will be read by more people than something wrtitten in german. Thus the language of the tweet will be encoded as a one hot encoding and used as a feature for the tweet. 
+
+
+### Feature 3: Time of Tweet
+Timing a tweet just right might allow reaching more people and thus generatign more likes and retweets. Since most of the people are online during noon and afternoon while most of the people will be offline during the night. Which could therefor be a good feature to base our classification on.
+
+Example:
+```
+input: '18:15:00', '12:02:28', '00:54:00'   
+feature: [0,0,0,1,0], [0,1,0,0,0], [0,0,0,0,1]  
+```
 
 
 ## Evaluation:
