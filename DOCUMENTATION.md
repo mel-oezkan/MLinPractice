@@ -10,8 +10,6 @@ The tweets will be labeld according to their virality. Virality in this case wil
 
 
 
-## Evalaution
-
 ## Preprocessing
 
 Before using the data we have to do some cleaning up and additionally some other preprocessing steps. For that we will run the datset into a pipeline containg multiple modules. These modules will then be run iteratively on the datset which will yield us a datset we can extract features for the classification from.
@@ -25,6 +23,16 @@ Example:
 ```
 default: ''
 result: ''
+```
+
+
+### Module 5: Tokenization
+Within the last module the preprocessed tweets will be tokenized and every word will be set to an element within a newly created list instead of having a string as output.
+
+Example:
+```
+default: 'some twees are viral some are not'  
+result: '["some", "tweets", "are", "viral", "some", "are", "not"]'  
 ```
 
 ### Module 2: Stop Word Removal
@@ -54,23 +62,16 @@ default: ''
 result: ''  
 ```
 
-### Module 5: Tokenization
-Within the last module the preprocessed tweets will be tokenized and every word will be set to an element within a newly created list instead of having a string as output.
 
-Example:
-```
-default: 'some twees are viral some are not'  
-result: '["some", "tweets", "are", "viral", "some", "are", "not"]'  
-```
 
 ## Feature Selection
 
-### Feature i: Tweet Sentiment
+### Feature 1: Tweet Sentiment
 Given that polarizing opinions attract many listeners most of the times, we assume that the tweets with higher sentiment (either very positive or negative) will reach a larger audience. 
 
 
 ### Feature j: 
-
+Information about a second feature I am gonna use
 
 ## Evaluation:
 
