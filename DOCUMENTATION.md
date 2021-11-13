@@ -32,7 +32,16 @@ default: ''
 result: ''
 ```
 
-### Module 3: Lemmatization
+### Module 3: Removing Links
+Since links most often only contain some cryptic url they will be replaced by a substitude token.
+
+Example:
+```
+default: ''  
+result: ''  
+```
+
+### Module 4: Lemmatization
 The function of this module is to lemmatize the words in the tweet. Reducing the words in the tweets to their lemmas and additionally redcuing the variation between used words.
 
 Example:
@@ -40,3 +49,17 @@ Example:
 default: ''  
 result: ''  
 ```
+
+### Module 5: Tokenization
+Within the last module the preprocessed tweets will be tokenized and every word will be set to an element within a newly created list instead of having a string as output.
+
+Example:
+```
+default: 'some twees are viral some are not'  
+result: '["some", "tweets", "are", "viral", "some", "are", "not"]'  
+```
+
+## Feature Selection
+
+### Feature i: Tweet Sentiment
+The 
