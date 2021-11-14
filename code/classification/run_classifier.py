@@ -22,47 +22,39 @@ from mlflow import log_metric, log_param, set_tracking_uri
 
 # setting up CLI
 parser = argparse.ArgumentParser(description="Classifier")
-parser.add_argument("input_file", help="path to the input pickle file")
-parser.add_argument("-s", '--seed', type=int,
-                    help="seed for the random number generator", default=None)
-parser.add_argument("-e", "--export_file",
-                    help="export the trained classifier to the given location", default=None)
-parser.add_argument("-i", "--import_file",
-                    help="import a trained classifier from the given location", default=None)
-parser.add_argument("-m", "--majority", action="store_true",
-                    help="majority class classifier")
-parser.add_argument("-f", "--frequency", action="store_true",
-                    help="label frequency classifier")
-parser.add_argument("--svm", action="store_true",
-                    help="support vector machine (svm) classifier")
-parser.add_argument("-std", "--standartize", default=None,
-                    help="support vector machine (svm) classifier")
 
-parser.add_argument(
-    "--knn", type=int, help="k nearest neighbor classifier with the specified value of k", default=None)
-parser.add_argument("-a", "--accuracy", action="store_true",
-                    help="evaluate using accuracy")
-parser.add_argument("-k", "--kappa", action="store_true",
-                    help="evaluate using Cohen's kappa")
-parser.add_argument("--log_folder", help="where to log the mlflow results",
-                    default="data/classification/mlflow")
+from mlflow import log_metric, log_param, set_tracking_uri
+
+# setting up CLI
+parser = argparse.ArgumentParser(description = "Classifier")
+parser.add_argument("input_file", help = "path to the input pickle file")
+parser.add_argument("-s", '--seed', type = int, help = "seed for the random number generator", default = None)
+parser.add_argument("-e", "--export_file", help = "export the trained classifier to the given location", default = None)
+parser.add_argument("-i", "--import_file", help = "import a trained classifier from the given location", default = None)
+parser.add_argument("-m", "--majority", action = "store_true", help = "majority class classifier")
+parser.add_argument("-f", "--frequency", action = "store_true", help = "label frequency classifier")
+parser.add_argument("--knn", type = int, help = "k nearest neighbor classifier with the specified value of k", default = None)
+parser.add_argument("--svm", action="store_true", help="support vector machine (svm) classifier")
+parser.add_argument("-std", "--standartize", default=None, help="support vector machine (svm) classifier")
+parser.add_argument("-a", "--accuracy", action = "store_true", help = "evaluate using accuracy")
+parser.add_argument("-k", "--kappa", action = "store_true", help = "evaluate using Cohen's kappa")
+parser.add_argument("--log_folder", help = "where to log the results", default = "data/classification/mlruns")
 args = parser.parse_args()
 
 # load data
 with open(args.input_file, 'rb') as f_in:
     data = pickle.load(f_in)
 
-set_tracking_uri(args.log_folder)
+if args.log_folder is not None:
+    set_tracking_uri(args.log_folder)
 
 if args.import_file is not None:
     # import a pre-trained classifier
     with open(args.import_file, 'rb') as f_in:
         input_dict = pickle.load(f_in)
-
-    classifier = input_dict["classifier"]
-    for param, value in input_dict["params"].items():
+    classifier = input_dict['classifier']
+    for param, value in input_dict['params'].items():
         log_param(param, value)
-
     log_param("dataset", "validation")
 
 else:   # manually set up a classifier
@@ -72,24 +64,23 @@ else:   # manually set up a classifier
         print("    majority vote classifier")
         log_param("classifier", "majority")
         params = {"classifier": "majority"}
-        classifier = DummyClassifier(
-            strategy="most_frequent", random_state=args.seed)
-
+        classifier = DummyClassifier(strategy = "most_frequent", random_state = args.seed)
+        
     elif args.frequency:
         # label frequency classifier
         print("    label frequency classifier")
         log_param("classifier", "frequency")
         params = {"classifier": "frequency"}
-        classifier = DummyClassifier(
-            strategy="stratified", random_state=args.seed)
-
+        classifier = DummyClassifier(strategy = "stratified", random_state = args.seed)
+        params = {}
+    
     elif args.knn is not None:
         print("    {0} nearest neighbor classifier".format(args.knn))
         log_param("classifier", "knn")
         log_param("k", args.knn)
         params = {"classifier": "knn", "k": args.knn}
         standardizer = StandardScaler()
-        knn_classifier = KNeighborsClassifier(args.knn, n_jobs=-1)
+        knn_classifier = KNeighborsClassifier(args.knn, n_jobs = -1)
         classifier = make_pipeline(standardizer, knn_classifier)
 
     elif args.svm:
@@ -111,7 +102,7 @@ else:   # manually set up a classifier
             classifier = grid_svm
 
     classifier.fit(data["features"], data["labels"].ravel())
-    # log_param("dataset", "training")
+    log_param("dataset", "training")
 
 # now classify the given data
 prediction = classifier.predict(data["features"])
@@ -128,7 +119,7 @@ for metric_name, metric in evaluation_metrics:
     metric_value = metric(data["labels"], prediction)
     print("    {0}: {1}".format(metric_name, metric_value))
     log_metric(metric_name, metric_value)
-
+    
 # export the trained classifier if the user wants us to do so
 if args.export_file is not None:
     output_dict = {"classifier": classifier, "params": params}
