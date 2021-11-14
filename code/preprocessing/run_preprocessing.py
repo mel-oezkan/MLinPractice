@@ -36,10 +36,10 @@ df = pd.read_csv(args.input_file, quoting = csv.QUOTE_NONNUMERIC, lineterminator
 
 # collect all preprocessors
 preprocessors = []
-if args.punctuation:
-    preprocessors.append(PunctuationRemover())
 if args.links:
     preprocessors.append(LinkRemover(COLUMN_PUNCTUATION, COLUMN_LINKS))
+if args.punctuation:
+    preprocessors.append(PunctuationRemover())
 if args.tokenize:
     preprocessors.append(Tokenizer(args.tokenize_input, args.tokenize_input + SUFFIX_TOKENIZED))
     
@@ -51,6 +51,7 @@ if args.tokenize:
 # call all preprocessing steps
 for preprocessor in preprocessors:
     df = preprocessor.fit_transform(df)
+    print(df.info())
 
 # store the results
 df.to_csv(args.output_file, index = False, quoting = csv.QUOTE_NONNUMERIC, line_terminator = "\n")
