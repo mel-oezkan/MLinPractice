@@ -16,6 +16,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import GridSearchCV
+
 from mlflow import log_metric, log_param, set_tracking_uri
 
 # setting up CLI
@@ -92,19 +94,24 @@ else:   # manually set up a classifier
 
     elif args.svm:
         print("    svm classifier")
-        svm_classifier = SVC(gamma='auto')
+
+        param_grid = {'C': [0.1, 1, 10, 100, 1000],
+              'gamma': [1, 0.1, 0.01, 0.001, 0.0001],
+              'kernel': ['rbf']}
+ 
+        grid_svm = GridSearchCV(SVC(), param_grid, refit = True, verbose = 3)
 
         if args.standartize:
             standardizer = StandardScaler()
             classifier = make_pipeline(
                 standardizer,
-                svm_classifier
+                grid_svm
             )
         else:
-            classifier = svm_classifier
+            classifier = grid_svm
 
     classifier.fit(data["features"], data["labels"].ravel())
-    log_param("dataset", "training")
+    # log_param("dataset", "training")
 
 # now classify the given data
 prediction = classifier.predict(data["features"])
