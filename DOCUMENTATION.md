@@ -24,7 +24,14 @@ Example:
 default: ''
 result: ''
 ```
+### Module 3: Removing Links
+Since links most often only contain some cryptic url they will be replaced by a substitude token.
 
+Example:
+```
+default: ''  
+result: ''  
+```
 
 ### Module 5: Tokenization
 Within the last module the preprocessed tweets will be tokenized and every word will be set to an element within a newly created list instead of having a string as output.
@@ -42,15 +49,6 @@ Example:
 ```
 default: ''
 result: ''
-```
-
-### Module 3: Removing Links
-Since links most often only contain some cryptic url they will be replaced by a substitude token.
-
-Example:
-```
-default: ''  
-result: ''  
 ```
 
 ### Module 4: Lemmatization
@@ -76,8 +74,8 @@ feature['pos']: 0.1
 feature['neg']: 0.94
 ```
 
-### Feature 2: Language of Tweet 
-Since english is the most spoken language in the world the assumption is that tweets written in english will be read by more people than something wrtitten in german. Thus the language of the tweet will be encoded as a one hot encoding and used as a feature for the tweet. 
+### Feature 2: Number of Hashtages
+
 
 
 ### Feature 3: Time of Tweet

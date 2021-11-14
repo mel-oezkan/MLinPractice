@@ -51,7 +51,6 @@ if args.tokenize:
 # call all preprocessing steps
 for preprocessor in preprocessors:
     df = preprocessor.fit_transform(df)
-    print(df.info())
 
 # store the results
 df.to_csv(args.output_file, index = False, quoting = csv.QUOTE_NONNUMERIC, line_terminator = "\n")

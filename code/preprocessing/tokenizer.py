@@ -23,6 +23,8 @@ class Tokenizer(Preprocessor):
     def _get_values(self, inputs):
         """Tokenize the tweet."""
         
+        print('    Running Tokenizer')
+
         tokenized = []
         
         for tweet in inputs[0]:
@@ -33,5 +35,5 @@ class Tokenizer(Preprocessor):
                 tokenized_tweet += words
             
             tokenized.append(str(tokenized_tweet))
-        
+
         return tokenized
